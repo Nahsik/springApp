@@ -2,6 +2,7 @@ package com.kd.DSA.LinkedList;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.PriorityQueue;
 
 public class Solution {
 
@@ -198,6 +199,7 @@ public class Solution {
         }
         return result.next;
     }
+
     public Node copyRandomList1(Node head) {
         if (head == null) return null;
 
@@ -218,5 +220,92 @@ public class Solution {
 
         return oldToNew.get(head);
     }
+
+
+    /**
+     * <a href="https://leetcode.com/problems/add-two-numbers/description/">add-two-numbers</a>
+     *
+     * @param l1
+     * @param l2
+     * @return
+     */
+    public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
+        ListNode result = new ListNode();
+        ListNode tamp = result;
+        int c = 0;
+        while (l1 != null || l2 != null) {
+            int sum = 0;
+            if (null != l1) {
+                sum += l1.val;
+                l1 = l1.next;
+            }
+            if (null != l2) {
+                sum += l2.val;
+                l2 = l2.next;
+            }
+            sum += c;
+            c = sum / 10;
+            sum = sum % 10;
+            result.next = new ListNode(sum);
+            result = result.next;
+        }
+        if (c != 0) {
+            result.next = new ListNode(c);
+        }
+        return tamp.next;
+    }
+
+
+    /**
+     * <a href="https://leetcode.com/problems/merge-k-sorted-lists/">merge-k-sorted-lists</a>
+     * @param lists
+     * @return
+     */
+    public ListNode mergeKLists(ListNode[] lists) {
+        PriorityQueue<ListNode> priorityQueue = new PriorityQueue<>(
+                (a, b) -> a.val - b.val);
+        ListNode listNode = new ListNode();
+        ListNode tamp = listNode;
+        for (ListNode node : lists) {
+            if (null != node) {
+                priorityQueue.add(node);
+            }
+        }
+        while (!priorityQueue.isEmpty()) {
+            ListNode node = priorityQueue.poll();
+            tamp.next = new ListNode(node.val);
+            tamp = tamp.next;
+            if (null != node.next) {
+                priorityQueue.add(node.next);
+            }
+        }
+        return listNode.next;
+    }
+
+    /**
+     * <a href="https://leetcode.com/problems/reverse-nodes-in-k-group/">reverse-nodes-in-k-group</a>
+     * @param head
+     * @param k
+     * @return
+     */
+    public ListNode reverseKGroup(ListNode head, int k) {
+        ListNode curr = head;
+        ListNode result = head;
+        while (curr != null) {
+            ListNode prev = curr;
+            int n = k;
+            while(n > 0 && curr!=null){
+                n--;
+                ListNode tamp = curr.next;
+                curr.next = prev;
+                prev = curr;
+                curr = tamp;
+            }
+        }
+        return result;
+
+
+    }
+
 
 }
