@@ -1,0 +1,33 @@
+
+Functional Requirement
+1. View Problem
+2. Submit Code
+3. Contests With Live Dashboard
+
+Non Functional Requirement
+1. 50k concurrent users.
+2. 10s Latency for leaderboard update
+3. Security of code execution
+4. Low Latency for code submissions
+
+======================================
+
+API Design
+GET  /problems/:probleamId
+GET  /problems?offSet=0&&limit=50
+
+POST /submit/:probleamId
+{
+  code : "String",
+  language : "Java/C++"
+}
+
+GET leaderboard/:contestId
+GET /contest/:contestId?offSet=0&&limit=50
+
+=================================
+- users
+- problems
+- submissions
+- contests
+- leaderboard
