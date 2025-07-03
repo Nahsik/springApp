@@ -31,3 +31,15 @@ GET /contest/:contestId?offSet=0&&limit=50
 - submissions
 - contests
 - leaderboard
+
+=============================
+  Code Execution
+    - security / isolation
+    - resource limit
+    - memory, timeOut, CPU limit
+   1. VM => cloud VM which only runs the code and has only necessary code.
+   2. Docker Containers
+   3. Isolate CLI tool
+   4. Use Cloud Function => AWS Lambda function or Google Function
+   5. WASM => web assembly => convert code to WASM and execute that code in browser
+

@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
-public class Solution implements Probleam {
+public class Solution implements Problem {
 
     @Override
     public boolean canFinish(int numCourses, int[][] prerequisites) {

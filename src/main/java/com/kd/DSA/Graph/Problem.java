@@ -1,6 +1,6 @@
 package com.kd.DSA.Graph;
 
-public interface Probleam {
+public interface Problem {
     /**
      *  <a href="https://leetcode.com/problems/course-schedule/">course-schedule</a>
      * @param numCourses
