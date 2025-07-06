@@ -20,7 +20,7 @@ public class Solution implements Problem {
         boolean[] visit = new boolean[numCourses];
         boolean[] curr = new boolean[numCourses];
         for (int i = 0; i < numCourses; i++) {
-            if (!visit[i] && isCycle(i, visit, graph)) {
+            if (!visit[i] && isCycle(i, visit, curr, graph)) {
                 return true;
             }
         }

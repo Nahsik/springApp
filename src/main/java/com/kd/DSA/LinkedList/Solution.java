@@ -258,6 +258,7 @@ public class Solution {
 
     /**
      * <a href="https://leetcode.com/problems/merge-k-sorted-lists/">merge-k-sorted-lists</a>
+     *
      * @param lists
      * @return
      */
@@ -284,6 +285,7 @@ public class Solution {
 
     /**
      * <a href="https://leetcode.com/problems/reverse-nodes-in-k-group/">reverse-nodes-in-k-group</a>
+     *
      * @param head
      * @param k
      * @return
@@ -294,7 +296,7 @@ public class Solution {
         while (curr != null) {
             ListNode prev = curr;
             int n = k;
-            while(n > 0 && curr!=null){
+            while (n > 0 && curr != null) {
                 n--;
                 ListNode tamp = curr.next;
                 curr.next = prev;
@@ -307,5 +309,31 @@ public class Solution {
 
     }
 
+    /**
+     * <a href="https://leetcode.com/problems/palindrome-linked-list/">palindrome</a>
+     *
+     * @param head
+     */
+    public boolean isPalindrome(ListNode head) {
+        ListNode slow = head;
+        ListNode fast = head;
+
+        while (null != fast && null != fast.next) {
+            fast = fast.next.next;
+            slow = slow.next;
+        }
+
+        fast = reverseList(slow);
+
+        while (null != fast && null != slow) {
+
+            if (fast.val != slow.val) {
+                return false;
+            }
+            fast = fast.next;
+            slow = slow.next;
+        }
+        return true;
+    }
 
 }
