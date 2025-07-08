@@ -1,0 +1,48 @@
+/**
+=> https://swatijha.hashnode.dev/parking-lot-low-level-design#heading-problem-definition
+**/
+
+Requirements
+1. The parking Lot should have multiple floors
+2. The parking Lot should have multiple entry and exit gates
+3. It should support parking of multiple vehicles- two, four, heavy
+4. Ticket must be generated at the entry gate
+5. Payment should be done at the exit gate through different modes- cash, card, UPI
+6. Payment can be done on an hourly or minute basis.
+7. Parking Space must be allocated close to the entrance gate of the vehicle
+
+
+===>  Objects Required  <===
+1. Vehicle
+    - int regNum;
+    - ENUM type (TWO_WHEELER, FOUR_WHEELER, HEAVY_WHEELER);
+2. Parking Lot
+    - int uniqueId;
+    - List<Floor> floors;
+3. Floor
+    - int floorNumber
+    - List<Entry Gate>
+    - List<Exit Gate>
+4. Parking Space : two wheeler , four-wheeler , heavy vehicles.
+    - Type : ??
+5. Entry Gate
+    int gateNumber;
+6. Exit Gate
+    int gateNumber;
+7. Gate Manger
+    int managerId;
+    int gateId;
+8. Ticket
+   - Vehicle
+   - inTime
+   - outTime
+   - Payment
+   -
+9. Payment
+   -
+10.Payment Strategy
+
+===> UMI Class Diagram : https://lucid.app/documents/embedded/42f7ff98-c046-4d4f-9318-820e77b321af#
+
+
+
