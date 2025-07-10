@@ -2,9 +2,10 @@ package com.kd.DSA.Tree;
 
 
 public class TreeNode {
-    int val;
-    TreeNode left;
-    TreeNode right;
+    public int val;
+    public int data;
+    public TreeNode left;
+    public TreeNode right;
 
     TreeNode() {
     }
@@ -15,6 +16,7 @@ public class TreeNode {
 
     TreeNode(int val, TreeNode left, TreeNode right) {
         this.val = val;
+        this.data = val;
         this.left = left;
         this.right = right;
     }
