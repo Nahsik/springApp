@@ -2,11 +2,9 @@ package com.kd.SystemDesign.LLD.Questions.Library.Entity;
 
 import com.kd.SystemDesign.LLD.Questions.Library.Enum.BookStatus;
 import com.kd.SystemDesign.LLD.Questions.Library.Enum.Genre;
-import lombok.Builder;
 import lombok.Data;
 
 @Data
-@Builder
 public class Book {
     static int count = 1;
     private String isbn;
