@@ -1,9 +1,11 @@
 package com.kd.DSA.Comany.Amazon;
 
+import com.kd.DSA.Interval;
 import com.kd.DSA.Tree.TreeNode;
 import com.kd.DSA.Trie;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class Solution implements Problem {
     @Override
@@ -211,20 +213,28 @@ public class Solution implements Problem {
         }
     }
 
-
+     @Override
     public String[] reorderLogFiles(String[] logs) {
-        Comparator<String> comparator = (a, b) -> {
-            String[] A = a.split(" ");
-            String[] B = b.split(" ");
-            boolean isAD = ((A[1].charAt(0) - '0') >= 0) && ((A[1].charAt(0) - '0') <= 9);
-            boolean isBD = ((B[1].charAt(0) - '0') >= 0) && ((B[1].charAt(0) - '0') <= 9);
-            if (isBD == isAD) {
-                return 1;
-            }
-            return 1;
-        };
 
-        Arrays.sort(logs, comparator);
+        Arrays.sort(logs, (a,b)->{
+            int identA = a.indexOf(" ") + 1;
+            int identB = b.indexOf(" ") + 1;
+
+            boolean isLetterA = Character.isLetter(a.charAt(identA));
+            boolean isLetterB = Character.isLetter(b.charAt(identB));
+            if(isLetterA && isLetterB){
+                int cmp =   a.substring(identA).compareTo(b.substring(identB));
+                if(cmp != 0) return cmp;
+
+                return a.compareTo(b);
+            }else if(isLetterA && !isLetterB){
+                return -1;
+            }else if(!isLetterA && isLetterB){
+                return 1;
+            }else return 0;
+
+        });
+
         return logs;
     }
 
@@ -579,11 +589,285 @@ public class Solution implements Problem {
         }
 
         List<String> result = map1.entrySet().stream()
-                .sorted((a,b)->b.getValue()-a.getValue()).limit(1)
-                .map(a-> a.getKey()).toList();
+                .sorted((a, b) -> b.getValue() - a.getValue()).limit(1)
+                .map(a -> a.getKey()).toList();
 
         return Arrays.asList(result.get(0).split(","));
     }
+
+    public boolean wordBreak(String s, List<String> wordDict) {
+        Trie trie = new Trie();
+        for (int i = 0; i < s.length(); i++) {
+            trie.insertWord(s.substring(i));
+        }
+
+        for (String s1 : wordDict) {
+            if (!trie.startWith(s1)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+
+    @Override
+    public List<Integer> rightSideView(TreeNode root) {
+        List<Integer> result = new ArrayList<>();
+        if (null == root) {
+            return result;
+        }
+        Queue<TreeNode> queue = new LinkedList<>();
+        queue.add(root);
+
+        while (!queue.isEmpty()) {
+            int k = queue.size();
+            for (int i = 0; i < k; i++) {
+                TreeNode t = queue.poll();
+                if (i == k - 1) {
+                    result.add(t.val);
+                }
+                if (null != t.left) {
+                    queue.add(t.left);
+                }
+                if (null != t.right) {
+                    queue.add(t.right);
+                }
+            }
+        }
+
+        return result;
+    }
+
+    @Override
+    public List<List<Integer>> zigzagLevelOrder(TreeNode root) {
+        List<List<Integer>> result = new ArrayList<>();
+        Queue<TreeNode> q = new LinkedList<>();
+        q.add(root);
+        while (!q.isEmpty()) {
+            int k = q.size();
+            List<Integer> list = new ArrayList<>();
+            for (int i = 0; i < k; i++) {
+                TreeNode treeNode = q.poll();
+                if (null != treeNode.left) {
+                    q.add(treeNode.left);
+                }
+                if (null != treeNode.right) {
+                    q.add(treeNode.right);
+                }
+                list.add(treeNode.val);
+            }
+            if (result.size() % 2 == 1) {
+                Collections.reverse(list);
+            }
+            result.add(list);
+        }
+        return result;
+    }
+
+
+    public int[] topKFrequent(int[] nums, int k) {
+        Map<Integer, Integer> map = new HashMap<>();
+        for (int i : nums) {
+            map.put(i, map.getOrDefault(i, 0) + 1);
+        }
+        List<Integer> list = map.entrySet().stream()
+                .sorted((a, b) -> b.getValue() - a.getValue())
+                .limit(k).map(a -> a.getKey()).collect(Collectors.toList());
+        int[] result = new int[list.size()];
+        for (int i = 0; i < list.size(); i++) {
+            result[i] = list.get(i);
+        }
+        return result;
+    }
+
+    @Override
+    public int minMeetingRooms(List<Interval> a) {
+        if (a.isEmpty()) {
+            return 0;
+        }
+        Collections.sort(a, (a1, b1) -> {
+            return a1.start - b1.start;
+        });
+        PriorityQueue<Integer> pQueue = new PriorityQueue<>();
+        for (Interval in : a) {
+            if (!pQueue.isEmpty() && pQueue.peek() <= in.start) {
+                pQueue.poll();
+            }
+            pQueue.add(in.end);
+
+        }
+        return pQueue.size();
+    }
+
+    @Override
+    public int lengthOfLongestSubstring(String s) {
+        int result = 0;
+        int[] hash = new int[256];
+        int start = 0;
+        int end = 0;
+
+        while (start < s.length()) {
+            int num = s.charAt(start);
+            hash[num]++;
+            if (hash[num] > 1) {
+                while (hash[num] > 1 && end < s.length()) {
+                    hash[s.charAt(end)]--;
+                    end++;
+                }
+            }
+            result = Math.max(result, start - end + 1);
+            start++;
+        }
+        return result;
+    }
+
+    @Override
+    public String findOrder(String[] words) {
+        StringBuilder sb = new StringBuilder();
+
+        return sb.toString();
+    }
+
+
+    @Override
+    public int[] maxSlidingWindow(int[] nums, int k) {
+        int[] result = new int[nums.length - k + 1];
+        Deque<Integer> dq = new LinkedList<>();
+        for (int i = 0; i < k - 1; i++) {
+            while (!dq.isEmpty() && nums[dq.peekLast()] < nums[i]) {
+                dq.pollLast();
+            }
+            dq.addLast(i);
+        }
+
+        for (int i = k - 1; i < nums.length; i++) {
+            while (!dq.isEmpty() && dq.peekFirst() < i - k + 1) {
+                dq.pollFirst();
+            }
+            while (!dq.isEmpty() && nums[dq.peekLast()] < nums[i]) {
+                dq.pollLast();
+            }
+            dq.addLast(i);
+            result[i - k + 1] = nums[dq.peekFirst()];
+        }
+        return result;
+    }
+
+
+    // 4,5,6,7,0,1,2 => Target => 0.
+    @Override
+    public int search(int[] nums, int target) {
+
+        int index = -1;
+        int start = 0;
+        int end = nums.length - 1;
+
+        while (start < end) {
+            int mid = start + (end - start) / 2;
+            if (nums[mid] == target) {
+                return mid;
+            } else if (nums[mid] > target) {
+                if (target > nums[start]) {
+                    start = mid + 1;
+                } else {
+                    end = mid - 1;
+                }
+            } else {
+                if (target > nums[start]) {
+                    end = mid - 1;
+                } else {
+                    start = mid + 1;
+                }
+            }
+        }
+        return index;
+    }
+
+    @Override
+    public int findKthLargest(int[] nums, int k) {
+        int start = 0;
+        int end = nums.length - 2;
+        int index = findIndex(start, end, nums);
+        while (index != k && index != -1) {
+            if (index > k) {
+                start = index + 1;
+                index = findIndex(start, end, nums);
+            } else {
+                end = index - 1;
+                index = findIndex(start, end, nums);
+            }
+        }
+        return nums[index];
+    }
+
+    private int findIndex(int start, int end, int[] nums) {
+        if (end < start) {
+            return -1;
+        }
+        int a = start;
+        for (int i = start; i < end; i++) {
+            if (nums[i] > nums[end]) {
+
+            } else {
+
+            }
+        }
+        return a;
+    }
+
+    private void swap(int[] nums, int i, int j) {
+        int tamp = nums[i];
+        nums[i] = nums[j];
+        nums[j] = tamp;
+    }
+
+
+    @Override
+    public int subarraySum(int[] nums, int k) {
+        int count = 0;
+        int n = nums.length;
+        int sum = 0;
+        HashMap<Integer, Integer> hashMap = new HashMap<>();
+        hashMap.put(0, 1);
+        for (int i = 0; i < n; i++) {
+            sum += nums[i];
+            count += hashMap.getOrDefault(sum - k, 0);
+            hashMap.put(sum, hashMap.getOrDefault(sum, 0) + 1);
+        }
+        return count;
+    }
+
+
+    public boolean isValidBST(TreeNode root) {
+        if (null == root) {
+            return true;
+        }
+        return isValidBST(root,Integer.MAX_VALUE+1,Integer.MIN_VALUE-1);
+    }
+
+    public boolean isValidBST(TreeNode root, long max , long min) {
+        if (null == root) {
+            return true;
+        }
+         if(root.val >= max || root.val<=min){
+             return false;
+         }
+        return isValidBST(root.left,root.val,min) && isValidBST(root.right,max,root.val);
+    }
+
+    public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q){
+        if (root == null) return null;
+        if (root == p || root == q) return root;
+
+        TreeNode left = lowestCommonAncestor(root.left, p, q);
+        TreeNode right = lowestCommonAncestor(root.right, p, q);
+
+        if (left != null && right != null) return root;
+        return left == null ? right : left;
+    }
+
+
+
 
 
 }

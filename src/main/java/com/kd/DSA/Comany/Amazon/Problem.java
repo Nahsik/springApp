@@ -1,5 +1,6 @@
 package com.kd.DSA.Comany.Amazon;
 
+import com.kd.DSA.Interval;
 import com.kd.DSA.Tree.TreeNode;
 
 import java.util.List;
@@ -138,4 +139,96 @@ public interface Problem {
      */
      List<String> mostVisitedPattern(String[] username, int[] timestamp, String[] website);
 
+    /**
+     * <a href="https://leetcode.com/problems/word-break/description/">word-break</a>
+     * @param s
+     * @param wordDict
+     * @return
+     */
+    boolean wordBreak(String s, List<String> wordDict);
+
+    /**
+     * <a href="https://leetcode.com/problems/binary-tree-right-side-view/">binary-tree-right-side-view</a>
+     * @param root
+     * @return
+     */
+    List<Integer> rightSideView(TreeNode root);
+
+    /**
+     * <a href="https://leetcode.com/problems/binary-tree-zigzag-level-order-traversal/">binary-tree-zigzag-level-order-traversal</a>
+     * @param root
+     * @return
+     */
+    List<List<Integer>> zigzagLevelOrder(TreeNode root);
+
+    /**
+     * <a href="https://leetcode.com/problems/top-k-frequent-elements/">top-k-frequent-elements</a>
+     * @param nums
+     * @param k
+     * @return
+     */
+    public int[] topKFrequent(int[] nums, int k);
+
+
+    public int minMeetingRooms(List<Interval> intervals);
+
+    /**
+     * <a href="https://leetcode.com/problems/longest-substring-without-repeating-characters/">longest-substring-without-repeating-characters</a>
+     * @param s
+     * @return
+     */
+    public int lengthOfLongestSubstring(String s);
+
+    /**
+     * <a href="https://leetcode.ca/all/269.html">Alien Dictionary</a>
+     * @param words
+     * @return
+     */
+    public String findOrder(String[] words);
+
+
+    /**
+     * <a href="https://leetcode.com/problems/sliding-window-maximum/">sliding-window-maximum/</a>
+     * @param nums
+     * @param k
+     * @return
+     */
+    public int[] maxSlidingWindow(int[] nums, int k);
+
+
+    public int search(int[] nums, int target);
+
+
+    /**
+     * <a href="https://leetcode.com/problems/kth-largest-element-in-an-array/">kth-largest-element-in-an-array</a>
+     * @param nums
+     * @param k
+     * @return
+     */
+    int findKthLargest(int[] nums, int k);
+
+
+    /**
+     * <a href="https://leetcode.com/problems/subarray-sum-equals-k/">subarray-sum-equals-k</a>
+     * @param nums
+     * @param k
+     * @return
+     */
+    public int subarraySum(int[] nums, int k);
+
+    /**
+     *<a href="https://leetcode.com/problems/validate-binary-search-tree/description/">validate-binary-search-tree</a>
+     * @param root
+     * @return
+     */
+    boolean isValidBST(TreeNode root) ;
+
+    /**
+     * <a href="https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-tree/">lowest-common-ancestor-of-a-binary-tree</a>
+     * @param root
+     * @param p
+     * @param q
+     * @return
+     */
+    TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q);
 }
