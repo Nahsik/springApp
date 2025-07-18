@@ -213,25 +213,25 @@ public class Solution implements Problem {
         }
     }
 
-     @Override
+    @Override
     public String[] reorderLogFiles(String[] logs) {
 
-        Arrays.sort(logs, (a,b)->{
+        Arrays.sort(logs, (a, b) -> {
             int identA = a.indexOf(" ") + 1;
             int identB = b.indexOf(" ") + 1;
 
             boolean isLetterA = Character.isLetter(a.charAt(identA));
             boolean isLetterB = Character.isLetter(b.charAt(identB));
-            if(isLetterA && isLetterB){
-                int cmp =   a.substring(identA).compareTo(b.substring(identB));
-                if(cmp != 0) return cmp;
+            if (isLetterA && isLetterB) {
+                int cmp = a.substring(identA).compareTo(b.substring(identB));
+                if (cmp != 0) return cmp;
 
                 return a.compareTo(b);
-            }else if(isLetterA && !isLetterB){
+            } else if (isLetterA && !isLetterB) {
                 return -1;
-            }else if(!isLetterA && isLetterB){
+            } else if (!isLetterA && isLetterB) {
                 return 1;
-            }else return 0;
+            } else return 0;
 
         });
 
@@ -842,20 +842,20 @@ public class Solution implements Problem {
         if (null == root) {
             return true;
         }
-        return isValidBST(root,Integer.MAX_VALUE+1,Integer.MIN_VALUE-1);
+        return isValidBST(root, Integer.MAX_VALUE + 1, Integer.MIN_VALUE - 1);
     }
 
-    public boolean isValidBST(TreeNode root, long max , long min) {
+    public boolean isValidBST(TreeNode root, long max, long min) {
         if (null == root) {
             return true;
         }
-         if(root.val >= max || root.val<=min){
-             return false;
-         }
-        return isValidBST(root.left,root.val,min) && isValidBST(root.right,max,root.val);
+        if (root.val >= max || root.val <= min) {
+            return false;
+        }
+        return isValidBST(root.left, root.val, min) && isValidBST(root.right, max, root.val);
     }
 
-    public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q){
+    public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
         if (root == null) return null;
         if (root == p || root == q) return root;
 
@@ -867,7 +867,26 @@ public class Solution implements Problem {
     }
 
 
+    public int[] nextGreaterElements(int[] nums) {
+        int[] result = new int[nums.length];
+        Stack<Integer> stack = new Stack<>();
 
+        for (int i = nums.length - 2; i >= 0; i--) {
+            if (nums[i] > nums[nums.length - 1]) {
+                stack.add(nums[i]);
+            }
+        }
+
+        for (int i = nums.length - 1; i >= 0; i--) {
+            while (!stack.isEmpty() && stack.peek() <= nums[i]) {
+                stack.pop();
+            }
+            result[i] = stack.isEmpty() ? -1 : stack.peek();
+            stack.add(nums[i]);
+        }
+        return result;
+
+    }
 
 
 }
