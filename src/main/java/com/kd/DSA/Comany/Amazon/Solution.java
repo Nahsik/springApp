@@ -889,4 +889,35 @@ public class Solution implements Problem {
     }
 
 
+    public List<String> generateParenthesis(int n) {
+        List<String> list = new ArrayList<>();
+        generateParenthesis(n, new StringBuilder(), 0, 0, list);
+        return list;
+    }
+
+    private void generateParenthesis(int n, StringBuilder sb, int i, int j, List<String> list) {
+        if (i > n || j > n) {
+            return;
+        }
+        if (n == i && n == j) {
+            list.add(sb.toString());
+            return;
+        }
+
+        if (i <= j) {
+            sb.append("(");
+            generateParenthesis(n, sb, i + 1, j, list);
+            sb.deleteCharAt(sb.length() - 1);
+        } else {
+            sb.append(")");
+            generateParenthesis(n, sb, i , j+1, list);
+            sb.deleteCharAt(sb.length() - 1);
+
+            sb.append("(");
+            generateParenthesis(n, sb, i +1, j, list);
+            sb.deleteCharAt(sb.length() - 1);
+        }
+
+    }
+
 }
