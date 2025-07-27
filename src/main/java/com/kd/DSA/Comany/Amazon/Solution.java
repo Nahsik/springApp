@@ -904,20 +904,100 @@ public class Solution implements Problem {
             return;
         }
 
-        if (i <= j) {
-            sb.append("(");
-            generateParenthesis(n, sb, i + 1, j, list);
-            sb.deleteCharAt(sb.length() - 1);
-        } else {
+        if (i > j) {
             sb.append(")");
-            generateParenthesis(n, sb, i , j+1, list);
-            sb.deleteCharAt(sb.length() - 1);
-
-            sb.append("(");
-            generateParenthesis(n, sb, i +1, j, list);
+            generateParenthesis(n, sb, i, j + 1, list);
             sb.deleteCharAt(sb.length() - 1);
         }
+        sb.append("(");
+        generateParenthesis(n, sb, i + 1, j, list);
+        sb.deleteCharAt(sb.length() - 1);
 
+    }
+
+
+    public String minWindow(String s, String t) {
+        if (t.length() > s.length())
+            return "";
+
+        int[] map = new int[128];
+        for (char c : t.toCharArray()) {
+            map[c]++;
+        }
+
+        int start = 0;
+        int end = 0;
+        int curr = 0;
+        int[] mapS = new int[128];
+        int minLen = Integer.MAX_VALUE;
+        int minStart = 0;
+
+        while (end < s.length()) {
+            char ch = s.charAt(end);
+            if (map[ch] > 0) {
+                mapS[ch]++;
+                if (mapS[ch] <= map[ch]) {
+                    curr++;
+                }
+            }
+
+            while (curr == t.length()) {
+                if (end - start + 1 < minLen) {
+                    minLen = end - start + 1;
+                    minStart = start;
+                }
+                int startChar = s.charAt(start);
+                if (map[startChar] > 0) {
+                    mapS[startChar]--;
+                    if (mapS[startChar] < map[startChar]) {
+                        curr--;
+                    }
+                }
+                start++;
+            }
+
+            end++;
+
+        }
+        return minLen == Integer.MAX_VALUE ? "" : s.substring(minStart, minStart + minLen);
+    }
+
+    public int maxProfit(int k, int[] prices) {
+        int min = prices[0];
+        int n = prices.length;
+        int sum = 0;
+        List<Integer> list = new ArrayList<>();
+        for (int i = 0; i < n; i++) {
+            if (prices[i] > min) {
+                int max = min;
+                while (i < n && prices[i] > max) {
+                    max = prices[i];
+                    i++;
+                }
+                list.add(max - min);
+                i--;
+                min = max;
+            } else {
+                min = Math.min(min, prices[i]);
+            }
+        }
+        Optional<Integer> sumOpt = list.stream().limit(k).reduce((a, b) -> a + b);
+        return sumOpt.orElse(0);
+    }
+
+    public int maxProfit1(int[] prices) {
+
+        // It is impossible to sell stock on first day, set -infinity as initial value for cur_hold
+        int hold = -Integer.MAX_VALUE, notHold = 0;
+
+        for (int stockPrice : prices) {
+            int prevHold = hold, prevNotHold = notHold;
+            hold = Math.max(prevHold, prevNotHold - stockPrice);
+            notHold = Math.max(prevNotHold, prevHold + stockPrice);
+        }
+
+        // maximum profit must be in not-hold state
+        return notHold;
     }
 
 }

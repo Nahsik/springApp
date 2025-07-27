@@ -10,7 +10,7 @@ public class HealthCheckController {
 
     @GetMapping("/")
     public String healthCheck(){
-        log.info("Health check called (:");
+     //   log.info("Health check called (:");
         return "SpringApp is Running";
     }
 }
