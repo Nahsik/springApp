@@ -29,4 +29,6 @@ public interface Problem {
      * @return
      */
     long maxScore(int[] nums1, int[] nums2, int k) ;
+
+    boolean canMakeEqual(String s, List<List<Character>> rules);
 }

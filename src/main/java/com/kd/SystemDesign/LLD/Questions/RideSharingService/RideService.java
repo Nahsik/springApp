@@ -7,7 +7,7 @@ public class RideService {
 
 
     public Ride createRide(RideRequest rideRequest){
-
+      return null;
     }
 
     public void updateRideStatus(String rideId, String rideStaus){

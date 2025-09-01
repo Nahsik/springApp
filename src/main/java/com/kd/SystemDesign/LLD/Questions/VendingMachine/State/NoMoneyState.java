@@ -12,7 +12,6 @@ public class NoMoneyState implements State {
     public void insertMoney(int money) {
         System.out.println("Money inserted.");
         machine.setCurrentBalance(machine.getCurrentBalance() + money);
-        this.
     }
 
     public void selectItem(String code) {

@@ -163,4 +163,19 @@ public class Solution implements Problem {
 //        return result;
     }
 
+    @Override
+    public boolean canMakeEqual(String s, List<List<Character>> rules) {
+        Map<Character,List<Character>> graph = new HashMap<>();
+        for (List<Character> rule : rules) {
+            char start = rule.get(0);
+            char end =  rule.get(1);
+            graph.computeIfAbsent(start, key -> new ArrayList<>());
+            graph.get(start).add(end);
+
+        }
+
+
+        return false;
+    }
+
 }

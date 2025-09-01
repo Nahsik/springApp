@@ -10,4 +10,12 @@ public interface Problem {
      * @return
      */
     List<String> generateParenthesis(int n);
+
+
+    /**
+     *<a href="https://leetcode.com/problems/longest-increasing-path-in-a-matrix/">longest-increasing-path-in-a-matrix</a>
+     * @param matrix
+     * @return
+     */
+     int longestIncreasingPathBackTracking(int[][] matrix) ;
 }
